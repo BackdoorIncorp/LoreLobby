@@ -1,6 +1,8 @@
 package io.github.lantiastudios.lobby;
 
 import com.google.common.base.Preconditions;
+import io.github.lantiastudios.lobby.navigation.LobbyInventories;
+import io.github.lantiastudios.lobby.utilities.AsyncMySQL;
 import net.minecraft.server.v1_16_R3.EntityPlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,7 +15,9 @@ import java.util.Map;
 
 public class LobbySystem extends JavaPlugin  {
 
+    private AsyncMySQL asyncMySQL = new AsyncMySQL();
     private static LobbySystem lobbySystemInstance;
+    private final LobbyInventories lobbyInventories = new LobbyInventories();
     @Override
     public void onEnable() {
         lobbySystemInstance = this;
@@ -29,6 +33,15 @@ public class LobbySystem extends JavaPlugin  {
 
     public static LobbySystem getLobbySystemInstance() {
         return lobbySystemInstance;
+    }
+
+    public LobbyInventories getLobbyInventories() {
+        return lobbyInventories;
+    }
+
+    protected void createMySQlTables() {
+        asyncMySQL.prepare("CREATE TABLE IF NOT EXISTS Items(material VARCHAR(64),platz int,name VARCHAR(64),lore VARCHAR(64))");
+
     }
     public static class MainClassManager extends LobbySystem{
 
