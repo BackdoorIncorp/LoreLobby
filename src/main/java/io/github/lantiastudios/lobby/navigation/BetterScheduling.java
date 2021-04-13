@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 public class BetterScheduling {
 
 
-    class ScheduleFillRemainingSlotsTask implements Runnable {
+    public static class ScheduleFillRemainingSlotsTask implements Runnable {
 
 
         private Inventory inventory;
